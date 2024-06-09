@@ -58,7 +58,7 @@
 {% block content %}
 <div id="taglabel" style="margin-bottom:8px;"></div>
 <nav class="SideNav"></nav>
-<div class="notFind" style="display:none;font-size:24px;margin:8px;">Not Find</div>
+<div class="notFind" style="display:none;font-size:24px;margin:8px;">No articles with</div>
 {% endblock %}
 
 {% block script %}
@@ -125,7 +125,7 @@ function showList(labelsCount){
             center.setAttribute("class","d-flex flex-items-center");
 
             svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-            path=document.createElementNS("http://www.w3.org/2000/svg","path"); 
+            path=document.createElementNS("http://www.w3.org/2000/svg","path");
             span=document.createElement("span");
             svg.setAttributeNS(null,"class","SideNav-icon octicon");
             svg.setAttributeNS(null,"style","width:16px;height:16px");
@@ -140,7 +140,7 @@ function showList(labelsCount){
 
             let listLabels=document.createElement("div");
             listLabels.setAttribute("class","listLabels");
-            
+
             for(label of jsonData[i]['labels']){
                 let LabelName=document.createElement("span");
                 LabelName.setAttribute("class","Label LabelName");
@@ -212,7 +212,7 @@ function searchShow(){
     if(a==0){
         let notFind=document.getElementsByClassName("notFind")[0];
         notFind.style.display='block';
-        notFind.innerHTML='Not Find "'+searchInput+'"';
+        notFind.innerHTML='No articles with "'+searchInput+'"';
     }
     else{document.getElementsByClassName("notFind")[0].style.display='none';}
 }

@@ -16,11 +16,12 @@ from jinja2 import Environment, FileSystemLoader
 from transliterate import translit
 from collections import OrderedDict
 ######################################################################################
-i18n={"Search":"Search","switchTheme":"switch theme","home":"home","comments":"comments","run":"run ","days":" days","Previous":"Previous","Next":"Next"}
+i18n={"Search":"Search","switchTheme":"Switch Theme","link":"Link","home":"Home","comments":"Comments","run":"Run ","days":" Days","Previous":"Previous","Next":"Next"}
 i18nCN={"Search":"搜索","switchTheme":"切换主题","home":"首页","comments":"评论","run":"网站运行","days":"天","Previous":"上一页","Next":"下一页"}
 i18nRU={"Search":"Поиск","switchTheme": "Сменить тему","home":"Главная","comments":"Комментарии","run":"работает ","days":" дней","Previous":"Предыдущая","Next":"Следующая"}
 IconBase={
     "post":"M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0 1 14.25 14H1.75A1.75 1.75 0 0 1 0 12.25Zm1.75-.25a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-8.5a.25.25 0 0 0-.25-.25ZM3.5 6.25a.75.75 0 0 1 .75-.75h7a.75.75 0 0 1 0 1.5h-7a.75.75 0 0 1-.75-.75Zm.75 2.25h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1 0-1.5Z",
+    "pinned": "M17.14 6.51c-.21.16-.41.31-.6.44s-.39.24-.6.32-.42.14-.64.17-.47.02-.75 0c-.19-.02-.37-.06-.54-.12l-3.56 2.78c.05.22.07.45.08.67s0 .45-.03.68c-.05.36-.12.69-.23.98s-.25.55-.41.8-.36.47-.59.68-.48.43-.75.65l-2.81-3.64-4.51 3.46-1.18.23.52-1.09 4.52-3.45-2.81-3.64c.28-.22.54-.41.8-.57s.53-.3.8-.4.57-.17.87-.21c.3-.04.64-.04 1.01.02.22.03.44.07.66.13s.43.14.63.24l3.56-2.78c-.01-.18 0-.36.02-.55.03-.27.09-.52.18-.73s.19-.41.33-.59.29-.35.45-.5.36-.31.58-.48l5.03 6.51z",
     "link":"m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z",
     "about":"M10.561 8.073a6.005 6.005 0 0 1 3.432 5.142.75.75 0 1 1-1.498.07 4.5 4.5 0 0 0-8.99 0 .75.75 0 0 1-1.498-.07 6.004 6.004 0 0 1 3.431-5.142 3.999 3.999 0 1 1 5.123 0ZM10.5 5a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z",
     "sun":"M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z",
@@ -36,7 +37,7 @@ IconBase={
 class GMEEK():
     def __init__(self,options):
         self.options=options
-        
+
         self.root_dir='docs/'
         self.post_folder='post/'
         self.backup_dir='backup/'
@@ -64,7 +65,7 @@ class GMEEK():
 
         if os.path.exists(self.backup_dir):
             shutil.rmtree(self.backup_dir)
-            
+
         if os.path.exists(self.root_dir):
             shutil.rmtree(self.root_dir)
 
@@ -73,7 +74,7 @@ class GMEEK():
         os.mkdir(self.post_dir)
 
     def defaultConfig(self):
-        dconfig={"singlePage":[],"startSite":"","filingNum":"","onePageListNum":15,"commentLabelColor":"#006b75","yearColorList":["#bc4c00", "#0969da", "#1f883d", "#A333D0"],"i18n":"CN","themeMode":"manual","dayTheme":"light","nightTheme":"dark","urlMode":"pinyin","script":"","style":"","indexScript":"","indexStyle":"","bottomText":"","showPostSource":1,"iconList":{},"UTC":+8,"rssSplit":"sentence","exlink":{}}
+        dconfig={"singlePage":[],"startSite":"","filingNum":"","onePageListNum":15,"commentLabelColor":"#006b75","yearColorList":["#424a53"],"i18n":"EN","themeMode":"manual","dayTheme":"light","nightTheme":"dark","urlMode":"pinyin","script":"","style":"","indexScript":"","indexStyle":"","bottomText":"","showPostSource":1,"iconList":{},"UTC":+8,"rssSplit":"sentence","exlink":{}}
         config=json.loads(open('config.json', 'r', encoding='utf-8').read())
         self.blogBase={**dconfig,**config}.copy()
         self.blogBase["postListJson"]=json.loads('{}')
@@ -101,7 +102,7 @@ class GMEEK():
             self.i18n=i18nRU
         else:
             self.i18n=i18n
-        
+
         self.TZ=datetime.timezone(datetime.timedelta(hours=self.blogBase["UTC"]))
 
     def get_repo(self,user:Github, repo:str):
@@ -138,7 +139,7 @@ class GMEEK():
             post_body=re.sub(r'<math-renderer.*?>','',post_body)
             post_body=re.sub(r'</math-renderer>','',post_body)
             issue["script"]=issue["script"]+'<script>MathJax = {tex: {inlineMath: [["$", "$"]]}};</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>'
-        
+
         if '<p class="markdown-alert-title">' in post_body:
             issue["style"]=issue["style"]+'<style>.markdown-alert{padding:0.5rem 1rem;margin-bottom:1rem;border-left:.25em solid var(--borderColor-default,var(--color-border-default));}.markdown-alert .markdown-alert-title {display:flex;font-weight:var(--base-text-weight-medium,500);align-items:center;line-height:1;}.markdown-alert>:first-child {margin-top:0;}.markdown-alert>:last-child {margin-bottom:0;}</style>'
             alerts = {
@@ -173,12 +174,12 @@ class GMEEK():
         postBase["top"]=issue["top"]
         postBase["postSourceUrl"]=issue["postSourceUrl"]
         postBase["repoName"]=options.repo_name
-        
+
         if "highlight" in post_body:
             postBase["highlight"]=1
         else:
             postBase["highlight"]=0
-        
+
         if issue["labels"][0] in self.blogBase["singlePage"]:
             postBase["bottomText"]=''
 
@@ -277,7 +278,7 @@ class GMEEK():
             new=re.sub(r'<lastBuildDate>.*?</lastBuildDate>','',new)
             old=re.sub(r'<lastBuildDate>.*?</lastBuildDate>','',self.oldFeedString)
             os.remove(self.root_dir+'new.xml')
-            
+
             if new==old:
                 print("====== rss xml no update ======")
                 feedFile=open(self.root_dir+'rss.xml',"w")
@@ -322,7 +323,7 @@ class GMEEK():
                 else:
                     period=self.blogBase["rssSplit"]
                 self.blogBase[listJsonName][postNum]["description"]=issue.body.split(period)[0].replace("\"", "\'")+period
-                
+
             self.blogBase[listJsonName][postNum]["top"]=0
             for event in issue.get_events():
                 if event.event=="pinned":
@@ -341,7 +342,7 @@ class GMEEK():
                 self.blogBase[listJsonName][postNum]["createdAt"]=postConfig["timestamp"]
             else:
                 self.blogBase[listJsonName][postNum]["createdAt"]=int(time.mktime(issue.created_at.timetuple()))
-            
+
             if "style" in postConfig:
                 self.blogBase[listJsonName][postNum]["style"]=self.blogBase["style"]+str(postConfig["style"])
             else:
@@ -365,7 +366,7 @@ class GMEEK():
 
             mdFileName=re.sub(r'[<>:/\\|?*\"]|[\0-\31]', '-', issue.title)
             f = open(self.backup_dir+mdFileName+".md", 'w', encoding='UTF-8')
-            
+
             if issue.body==None:
                 f.write('')
             else:
@@ -406,11 +407,11 @@ class GMEEK():
         else:
             if self.blogBase["urlMode"]=="issue":
                 fileName=str(issue.number)
-            elif self.blogBase["urlMode"]=="ru_translit": 
+            elif self.blogBase["urlMode"]=="ru_translit":
                 fileName=str(translit(issue.title, language_code='ru', reversed=True)).replace(' ', '-')
             else:
                 fileName=Pinyin().get_pinyin(issue.title)
-        
+
         fileName=re.sub(r'[<>:/\\|?*\"]|[\0-\31]', '-', fileName)
         return fileName
 
