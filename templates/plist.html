@@ -12,8 +12,8 @@
 {% block style %}
 <style>
 .avatar {transition: 0.8s;width:64px;height:64px;object-fit: cover;}
-.avatar:hover{transform: scale(1.15) rotate(360deg);}
-.title-left a{color:inherit;text-decoration:none;vertical-align: bottom;font-size:40px;font-weight: bold;font-family:Monaco;margin-left:8px;}
+.avatar:hover{animation: shake 0.7s ease-out;}
+.title-left a{color:inherit;text-decoration:none;vertical-align: bottom;font-size:40px;font-weight: bold;font-family:sans-serif;margin-left:8px;}
 .title-right{display:flex;margin:auto 0 0 auto;}
 .title-right button{margin-right:8px;padding:16px;}
 .title-right .circle{padding: 14px 16px;}
@@ -33,6 +33,18 @@
     #buttonRSS{display:none;}
     .LabelTime{display:none;}
 }
+
+@keyframes shake {
+    0%, 100% {
+        transform: rotateZ(0);
+    }
+    20%, 60%{
+        transform: rotateZ(30deg);
+    }
+    40%, 80% {
+        transform: rotateZ(-30deg);
+    }
+}
 </style>
 {{ blogBase['indexStyle'] }}
 {% endblock %}
@@ -40,14 +52,14 @@
 {% block header %}
 <div class="title-left">
     <img src="{{ blogBase['avatarUrl'] }}" class="avatar circle" id="avatarImg" alt="avatar">
-    {%- if blogBase['displayTitle']=='Meekdai' -%}
-    <a class="blogTitle" href="https://meekdai.com"><span style="font-size:0;">M</span>eekdai</a>
+    {%- if blogBase['displayTitle']=='Song Ann\'s Snippets' -%}
+    <a class="blogTitle" href="https://sachua.github.io/">{{ blogBase['displayTitle'] }}</a>
     {% else -%}
     <a class="blogTitle">{{ blogBase['displayTitle'] }}</a>
     {%- endif -%}
 </div>
 <div class="title-right">
-    <a href="{{ blogBase['homeUrl'] }}/tag.html" id="buttonSearch" class="btn btn-invisible circle" title="{{ i18n['Search'] }}">
+    <a href="{{ blogBase['homeUrl'] }}/tag.html" aria-label="Search" id="buttonSearch" class="btn btn-invisible circle" title="{{ i18n['Search'] }}">
         <svg class="octicon" width="16" height="16" >
             <path id="pathSearch" fill-rule="evenodd"></path>
         </svg>
@@ -60,13 +72,13 @@
     </a>
     {%- endfor %}
     {% for num in blogBase['singeListJson'] -%}
-    <a href="{{ blogBase['homeUrl'] }}/{{ blogBase['singeListJson'][num]['labels'][0] }}.html" class="btn btn-invisible circle" title="{{ blogBase['singeListJson'][num]['postTitle'] }}">
+    <a href="{{ blogBase['homeUrl'] }}/{{ blogBase['singeListJson'][num]['labels'][0] }}.html" aria-label="About" class="btn btn-invisible circle" title="{{ blogBase['singeListJson'][num]['postTitle'] }}">
         <svg class="octicon" width="16" height="16" >
             <path id="{{ blogBase['singeListJson'][num]['postTitle'] }}" fill-rule="evenodd"></path>
         </svg>
     </a>
     {%- endfor %}
-    <a href="{{ blogBase['homeUrl'] }}/rss.xml" target="_blank" id="buttonRSS" class="btn btn-invisible circle" title="RSS">
+    <a href="{{ blogBase['homeUrl'] }}/rss.xml" target="_blank" aria-label="RSS" id="buttonRSS" class="btn btn-invisible circle" title="RSS">
         <svg class="octicon" width="16" height="16" >
             <path id="pathRSS" fill-rule="evenodd"></path>
         </svg>
@@ -126,8 +138,8 @@ document.getElementById("pathRSS").setAttribute("d",IconList["rss"]);
 iconTOP=document.getElementsByClassName("svgTop1");
 iconPost=document.getElementsByClassName("svgTop0");
 for(var i=0;i<iconTOP.length;i++){
-    iconTOP[i].setAttribute("d",IconList["upload"]);
-    iconTOP[i].parentNode.style.color="red";
+    iconTOP[i].setAttribute("d",IconList["pinned"]);
+    iconTOP[i].parentNode.style.color="#bf9b30";
 }
 for(var i=0;i<iconPost.length;i++){
     iconPost[i].setAttribute("d",IconList["post"]);
