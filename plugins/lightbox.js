@@ -252,7 +252,7 @@
     open() {
       this.isOpen = true;
       this.overlay.classList.add('active');
-      this.showImage(this.images[this.currentIndex].src);
+      this.showImage(this.images[this.currentIndex].currentSrc);
       document.body.style.overflow = 'hidden';
       if (typeof this.options.onOpen === 'function') {
         this.options.onOpen();
@@ -273,7 +273,7 @@
     showPreviousImage() {
       if (this.currentIndex > 0) {
         this.currentIndex--;
-        this.showImage(this.images[this.currentIndex].src);
+        this.showImage(this.images[this.currentIndex].currentSrc);
         this.resetButtonScale(this.prevButton);
       }
     }
@@ -281,7 +281,7 @@
     showNextImage() {
       if (this.currentIndex < this.images.length - 1) {
         this.currentIndex++;
-        this.showImage(this.images[this.currentIndex].src);
+        this.showImage(this.images[this.currentIndex].currentSrc);
         this.resetButtonScale(this.nextButton);
       }
     }
@@ -319,12 +319,12 @@
 
       if (preloadNext < this.images.length) {
         this.preloadedImages[preloadNext] = new Image();
-        this.preloadedImages[preloadNext].src = this.images[preloadNext].src;
+        this.preloadedImages[preloadNext].src = this.images[preloadNext].currentSrc;
       }
 
       if (preloadPrev >= 0) {
         this.preloadedImages[preloadPrev] = new Image();
-        this.preloadedImages[preloadPrev].src = this.images[preloadPrev].src;
+        this.preloadedImages[preloadPrev].src = this.images[preloadPrev].currentSrc;
       }
     }
 
